@@ -1,8 +1,7 @@
 package com.example.football.models.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "teams")
@@ -20,8 +19,23 @@ public class Team extends BaseEntity {
     @Column(nullable = false, columnDefinition = "TEXT")
     private String history;
 
+    @ManyToOne(optional = false)
+    private Town town;
+
+    @OneToMany(targetEntity = Player.class, mappedBy = "team")
+    private Set<Player> players;
+
     public Team () {
 
+    }
+
+    public Town getTown() {
+        return town;
+    }
+
+    public Team setTown(Town town) {
+        this.town = town;
+        return this;
     }
 
     public String getName() {

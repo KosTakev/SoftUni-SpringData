@@ -2,10 +2,9 @@ package com.example.football.models.entity;
 
 import com.example.football.models.entity.enums.PlayerPosition;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.Objects;
 
 @Entity
 @Table(name = "players")
@@ -25,6 +24,15 @@ public class Player extends BaseEntity {
 
     @Column(nullable = false)
     private PlayerPosition position;
+
+    @ManyToOne(optional = false)
+    private Town town;
+
+    @OneToOne
+    private Stat stat;
+
+    @ManyToOne(optional = false)
+    private Team team;
 
     public Player() {
 
@@ -73,5 +81,45 @@ public class Player extends BaseEntity {
     public Player setPosition(PlayerPosition position) {
         this.position = position;
         return this;
+    }
+
+    public Town getTown() {
+        return town;
+    }
+
+    public Player setTown(Town town) {
+        this.town = town;
+        return this;
+    }
+
+    public Stat getStat() {
+        return stat;
+    }
+
+    public Player setStat(Stat stat) {
+        this.stat = stat;
+        return this;
+    }
+
+    public Team getTeam() {
+        return team;
+    }
+
+    public Player setTeam(Team team) {
+        this.team = team;
+        return this;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Player player = (Player) o;
+        return Objects.equals(email, player.email);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(email);
     }
 }
