@@ -20,7 +20,7 @@ public class Job extends BaseEntity{
     @Column(name = "hours_a_week", nullable = false)
     private Double hoursAWeek;
 
-    @Column(name = "description", nullable = false)
+    @Column(columnDefinition = "TEXT", nullable = false)
     private String description;
 
     @ManyToMany(mappedBy = "jobs")
